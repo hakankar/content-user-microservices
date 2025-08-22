@@ -25,7 +25,7 @@
   - Microservice Communication  
 
 - **Persistence**  
-  - DbContext,
+  - DbContext
   - Migrations 
   - Repository Implementations  
 
