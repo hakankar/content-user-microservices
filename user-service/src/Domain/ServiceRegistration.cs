@@ -6,8 +6,8 @@ namespace Domain
 {
     public static class ServiceRegistration
     {
-        public static void AddDomainServices(this IServiceCollection services) {
-
+        public static void AddDomainServices(this IServiceCollection services)
+        {
             services.AddScoped<IUserManagement, UserManagement>();
         }
     }

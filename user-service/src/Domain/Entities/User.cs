@@ -3,7 +3,7 @@ using Domain.Interfaces;
 
 namespace Domain.Entities
 {
-    public class User: BaseEntity, IAggregateRoot
+    public class User : BaseEntity, IAggregateRoot
     {
         public Guid Id { get; private set; }
         public string FullName { get; private set; } = string.Empty;
@@ -11,9 +11,9 @@ namespace Domain.Entities
         public string Password { get; private set; } = string.Empty;
 
 
-        protected User(){}
+        protected User() { }
 
-        internal User(string fullName, string email, string password )
+        internal User(string fullName, string email, string password)
         {
             Id = Guid.NewGuid();
             FullName = fullName.Trim();

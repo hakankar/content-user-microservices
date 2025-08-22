@@ -12,9 +12,7 @@ namespace Domain.BoundedContexts.ContentContext.ContentAggregate
 
 
         public Task<Content> CompleteCreateAsync(Content content, CancellationToken cancellationToken = default);
-
         public Task<Content> CompleteUpdateAsync(Content content, CancellationToken cancellationToken = default);
-
-        public  Task<Content> CompleteDeleteAsync(Content content, CancellationToken cancellationToken = default);
+        public Task<Content> CompleteDeleteAsync(Content content, CancellationToken cancellationToken = default);
     }
 }

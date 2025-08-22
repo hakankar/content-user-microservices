@@ -52,7 +52,6 @@ namespace Domain.BoundedContexts.ContentContext.ContentAggregate
 
             await _contentRepository.AddAsync(content, cancellationToken);
             return content;
-
         }
 
         public async Task<Content> CompleteUpdateAsync(Content content, CancellationToken cancellationToken = default)
@@ -63,7 +62,6 @@ namespace Domain.BoundedContexts.ContentContext.ContentAggregate
 
             await _contentRepository.UpdateAsync(content, cancellationToken);
             return content;
-
         }
 
         public async Task<Content> CompleteDeleteAsync(Content content, CancellationToken cancellationToken = default)
@@ -74,7 +72,6 @@ namespace Domain.BoundedContexts.ContentContext.ContentAggregate
 
             await _contentRepository.DeleteAsync(content, cancellationToken);
             return content;
-
         }
 
     }
