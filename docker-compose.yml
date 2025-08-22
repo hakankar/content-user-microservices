@@ -1,0 +1,97 @@
+version: "3.9"
+
+networks:
+  my_network:
+
+services:
+  user-db:
+    image: postgres:16
+    container_name: user_db
+    restart: always
+    environment:
+      POSTGRES_USER: userdb
+      POSTGRES_PASSWORD: userdb*123
+      POSTGRES_DB: userdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - user_pgdata:/var/lib/postgresql/data
+    networks:
+      - my_network
+
+  user-migrate:
+    build:
+      context: ./user-service
+      dockerfile: Dockerfile-db
+    container_name: user_migrate
+    depends_on:
+      - user-db
+    environment:
+      - ConnectionStrings__Postgre=Host=user-db;Port=5432;Database=userdb;Username=userdb;Password=userdb*123
+    restart: "no"
+    networks:
+      - my_network
+
+  user-api:
+    build:
+      context: ./user-service
+      dockerfile: src/Api/Dockerfile
+    container_name: user_api
+    depends_on:
+      - user-migrate
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__Postgre=Host=user-db;Port=5432;Database=userdb;Username=userdb;Password=userdb*123
+      - InternalApiServices__ContentApiServiceUrl=http://content-api:8080/internal
+    ports:
+      - "5000:8080"
+    networks:
+      - my_network
+
+  content-db:
+    image: postgres:16
+    container_name: content_db
+    restart: always
+    environment:
+      POSTGRES_USER: contentdb
+      POSTGRES_PASSWORD: contentdb*123
+      POSTGRES_DB: contentdb
+    ports:
+      - "5433:5432"
+    volumes:
+      - content_pgdata:/var/lib/postgresql/data
+    networks:
+      - my_network
+
+  content-migrate:
+    build:
+      context: ./content-service
+      dockerfile: Dockerfile-db
+    container_name: content_migrate
+    depends_on:
+      - content-db
+    environment:
+      - ConnectionStrings__Postgre=Host=content-db;Port=5432;Database=contentdb;Username=contentdb;Password=contentdb*123
+    restart: "no"
+    networks:
+      - my_network
+
+  content-api:
+    build:
+      context: ./content-service
+      dockerfile: src/Api/Dockerfile
+    container_name: content_api
+    depends_on:
+      - content-migrate
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__Postgre=Host=content-db;Port=5432;Database=contentdb;Username=contentdb;Password=contentdb*123
+      - InternalApiServices__UserApiServiceUrl=http://user-api:8080/internal
+    ports:
+      - "5001:8080"
+    networks:
+      - my_network
+
+volumes:
+  user_pgdata:
+  content_pgdata:

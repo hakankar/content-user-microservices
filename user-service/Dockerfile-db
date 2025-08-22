@@ -1,0 +1,10 @@
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS migrate
+WORKDIR /src
+
+COPY . .
+
+# EF CLI yükle
+RUN dotnet tool install --global dotnet-ef --version 9.0.0
+ENV PATH="$PATH:/root/.dotnet/tools"
+
+ENTRYPOINT ["dotnet", "ef", "database", "update","--project", "./src/Persistence/Persistence.csproj", "--startup-project", "./src/Api/Api.csproj"]
