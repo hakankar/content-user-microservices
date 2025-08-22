@@ -1,61 +1,63 @@
+## Project Structure
 
-## Proje Yapısı
-
-### 📂 src (Uygulama Katmanları)
+### 📂 src (Application Layers)
 - **Api**  
   - Controllers  
-  - Exception handler
-  - Middlewares
+  - Exception handler  
+  - Middlewares  
 
 - **Application**  
-  - CQRS – Command/Query/Handler
-  - Validations (FluentValidation)
-  - Abstractions
-  - Mappings
+  - CQRS – Command/Query/Handler  
+  - Validations (FluentValidation)  
+  - Abstractions  
+  - Mappings  
   - DTOs  
 
 - **Domain**  
-  - Entities
-  - DDD
-  - BoundedContexts
-  - Enums
+  - Entities  
+  - DDD  
+  - BoundedContexts  
+  - Enums  
 
 - **Infrastructure**  
-  - External Integrations
+  - External Integrations  
   - Microservice Communication  
 
 - **Persistence**  
-  - DbContext
-  - Migrations 
+  - DbContext  
+  - Migrations  
   - Repository Implementations  
 
 ---
 
-### 📂 tests (Birim Testler)
-xUnit kullanılarak Api, Application ve Domain katmanları için birim testler yazılmıştır. 
+### 📂 tests (Unit Tests)
+Unit tests are written for Api, Application, and Domain layers using **xUnit**.  
 - **Api.UnitTests**  
-
 - **Application.UnitTests**  
+- **Domain.UnitTests**  
 
-- **Domain.UnitTests**
 ---
-## Mikroservisler
 
-Proje iki ayrı mikroservisten oluşmaktadır:  
+## Microservices
+
+The project consists of two separate microservices:  
 
 - **User-Service**  
-  - Kullanıcı yönetimi (ekleme, güncelleme, silme, listeleme) işlemlerini gerçekleştirir.  
+  - Manages user operations (create, update, delete, list).  
   - URL: [http://localhost:5000](http://localhost:5000)  
 
 - **Content-Service**  
-  - İçerik yönetimi (ekleme, güncelleme, silme, listeleme) işlemlerini gerçekleştirir.  
+  - Manages content operations (create, update, delete, list).  
   - URL: [http://localhost:5001](http://localhost:5001)  
 
-### Mikroservisler Arası İletişim
+### Microservice Communication
 
-Servisler birbirleriyle **RESTful API** üzerinden haberleşmektedir.  
-Örneğin:  
-- **Content-Service** içerisinde yeni bir içerik oluşturulurken, verilen `UserId`’nin geçerli olup olmadığı **User-Service**’e yapılan bir istek ile kontrol edilmektedir. 
+The services communicate with each other via **RESTful API**.  
+For example:  
+- When creating new content in **Content-Service**, the provided `UserId` is validated by making a request to **User-Service**.  
+
+---
+
 ## 🚀 Docker & Build
 
 ### Build & Run
