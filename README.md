@@ -8,15 +8,13 @@
   - Middlewares
 
 - **Application**  
-  - İş mantığı (CQRS – Command/Query)  
-  - Service ve Handler’lar  
+  - CQRS – Command/Query/Handler
   - Validations (FluentValidation)
   - Abstractions
   - Mappings
   - DTOs  
 
 - **Domain**  
-  - Domain modelleri  
   - Entities
   - DDD
   - BoundedContexts
